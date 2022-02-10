@@ -1,18 +1,21 @@
+bool debug = true;
+
 const byte LANE_ONE_INTERRUPT_PIN = 2;
 const byte LANE_TWO_INTERRUPT_PIN = 3;
 
-byte CurrentMode;//0 = Time trial, 1= Normal race, 2 = Normal race with countdown
+byte CurrentMode;//0 =Settings, 1 = Time trial, 2 = Normal race, 3 = Normal race with countdown
 
 byte TimeTrialLane;
+byte RaceLapCount = 3;
 
-bool LaneOneLapCheck = false;
-long LaneOneLapResetTime;
+volatile bool LaneOneLapCheck = false;
+volatile long LaneOneLapResetTime;
 long LaneOneLastLapTime;
 byte LaneOneLapCounter;
 long LaneOneLapArr[3];
 
-bool LaneTwoLapCheck = false;
-long LaneTwoLapResetTime;
+volatile bool LaneTwoLapCheck = false;
+volatile long LaneTwoLapResetTime;
 long LaneTwoLastLapTime;
 byte LaneTwoLapCounter;
 long LaneTwoLapArr[3];
@@ -20,5 +23,6 @@ long LaneTwoLapArr[3];
 long RaceStartTime;
 long RaceEndTime;
 long RaceDuration;
-bool RaceStarted;
+bool TimingStarted;
 bool RaceEnded;
+byte WinnerLane;
