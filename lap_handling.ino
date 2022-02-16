@@ -1,47 +1,41 @@
-
+#include "Lane.h"
 
 void RegisterLap(byte lane = 0)
 {
-  if(StartTiming(CurrentMode, lane))
+  if(StartTiming(TycoSettings.GetMode(), lane))
     return;
 
-  long lapTime;
-  byte lapCount = 0;
-//  Serial.println(RaceDuration);
-//  Serial.println(LaneOneLastLapTime);
-//  Serial.println(LaneTwoLastLapTime);
-//  Serial.println(RaceStartTime);
-  if (lane == 1 && LaneOneLapCounter < RaceLapCount)
+  LapData lapData = {0,0};
+  byte lapCount;
+  if (lane == 1 && Lane1.GetLapCount() < MaxLapCount)
   {
-    lapTime = ( RaceDuration - LaneOneLastLapTime );
-    LaneOneLapArr[LaneOneLapCounter] = lapTime;
-    LaneOneLastLapTime = RaceDuration;
-    LaneOneLapCounter++;
-    lapCount = LaneOneLapCounter;
+    lapData = Lane1.RegisterLap(RaceDuration);
+    lapCount = Lane1.GetLapCount();
   }
-  else if (lane == 2 && LaneTwoLapCounter < RaceLapCount)
+  else if (lane == 2 && Lane2.GetLapCount() < MaxLapCount)
   {
-    lapTime = ( RaceDuration - LaneTwoLastLapTime );
-    LaneTwoLapArr[LaneTwoLapCounter] = lapTime;
-    LaneTwoLastLapTime = RaceDuration;
-    LaneTwoLapCounter++;
-    lapCount = LaneTwoLapCounter;
+    lapData = Lane2.RegisterLap(RaceDuration);
+    lapCount = Lane2.GetLapCount();
   }
   else
     return;
     
-  PrintLap( lapCount, lapTime, lane, 3 );
+  PrintLap( lane, lapData.LapNr, lapData.LapTime);
   
   //BT.println( "laptime%" + (String)lapTime + "%" + (String)lane + "%" + (String)lapCount );
-//  updateStatistics(lane, lapTime);
 
-  if ( !RaceEnded && lapCount == RaceLapCount && !IsWinnerSet() )
+  if ( !RaceFinished && lapCount == MaxLapCount && !IsWinnerSet() )
   {
     WinnerLane = lane;
-    RaceEnded = true;
-//    lcd.setCursor(1, 3);
-//    lcd.print( "Winner on lane #" + (String)lane );
+    RaceFinished = true;
+    PrintRow("Winner on lane #" + (String)lane, 3, 1);
+    NextPrintLoop = millis() + 2000;
 //    BT.println( "winner%" + (String)lane );
+  }
+
+  if(Lane1.GetLapCount() == MaxLapCount && Lane2.GetLapCount() == MaxLapCount)
+  {
+    TimingStarted = false;
   }
 }
 

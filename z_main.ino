@@ -1,13 +1,18 @@
 void setup() {
   Serial.begin(9600);
-  Reset();
+  Lcd.begin(20, 4);
 
-  pinMode(LANE_ONE_INTERRUPT_PIN, INPUT_PULLUP);  
-  pinMode(LANE_TWO_INTERRUPT_PIN, INPUT_PULLUP);
+  //pinMode(LANE_ONE_INTERRUPT_PIN, INPUT_PULLUP);  
+  //pinMode(LANE_TWO_INTERRUPT_PIN, INPUT_PULLUP);
   
   attachInterrupt(digitalPinToInterrupt(LANE_ONE_INTERRUPT_PIN), LaneOneLapInterrupt, RISING);
   attachInterrupt(digitalPinToInterrupt(LANE_TWO_INTERRUPT_PIN), LaneTwoLapInterrupt, RISING);
-  CurrentMode = 2;
+
+  //CurrentMode = 2;
+  
+  TycoSettings.SetOptions();
+  PrintTyco();
+  Reset();
 }
 
 void loop() {
@@ -15,10 +20,10 @@ void loop() {
 //    LaneOneLapCheck = false;
 //  if(LaneTwoLapResetTime <= millis())
 //    LaneTwoLapCheck = false;
-  //catch keypad here
+  HandleButtons();
 
   
-  switch(CurrentMode)
+  switch(TycoSettings.GetMode())
   {
     case 0:
       break;
@@ -29,9 +34,7 @@ void loop() {
       //Settings
       break;
     default:
-      break; 
-      
-    
+      break;
   }
 
 }

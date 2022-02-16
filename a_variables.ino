@@ -1,28 +1,55 @@
-bool debug = true;
+#include <Arduino.h>
+#include "Lane.h"
+#include "Settings.h"
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <phi_interfaces.h>
 
-const byte LANE_ONE_INTERRUPT_PIN = 2;
-const byte LANE_TWO_INTERRUPT_PIN = 3;
+LiquidCrystal_I2C Lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
+//Key pad settings
+byte keypad_type=Analog_keypad;
+char mapping[]={'L','U','D','R','A'}; // This is an analog keypad.
+byte pins[]={2}; // The pin numbers are analog pin numbers.
+int values[]={0, 146, 320, 513, 744}; //These numbers need to increase monotonically.
+phi_analog_keypads KeyPad(mapping, pins, values, 1, 5);
+// -- Key pad settings
+
+
+#define LANE_ONE_INTERRUPT_PIN 2
+#define LANE_TWO_INTERRUPT_PIN 3
+bool debug = false;
+
+//const byte LANE_ONE_INTERRUPT_PIN = 2;
+//const byte LANE_TWO_INTERRUPT_PIN = 3;
+
+bool SettingsMode = false;
 byte CurrentMode;//0 =Settings, 1 = Time trial, 2 = Normal race, 3 = Normal race with countdown
+byte DefaultMode = 2;
+byte MaxLapCount = 3;
+
+Lane Lane1(LANE_ONE_INTERRUPT_PIN, 1, MaxLapCount);
+Lane Lane2(LANE_TWO_INTERRUPT_PIN, 2, MaxLapCount);
+
+Settings TycoSettings(DefaultMode, MaxLapCount);
 
 byte TimeTrialLane;
-byte RaceLapCount = 3;
 
 volatile bool LaneOneLapCheck = false;
 volatile long LaneOneLapResetTime;
-long LaneOneLastLapTime;
-byte LaneOneLapCounter;
-long LaneOneLapArr[3];
 
 volatile bool LaneTwoLapCheck = false;
 volatile long LaneTwoLapResetTime;
-long LaneTwoLastLapTime;
-byte LaneTwoLapCounter;
-long LaneTwoLapArr[3];
 
-long RaceStartTime;
-long RaceEndTime;
-long RaceDuration;
+unsigned long RaceStartTime;
+unsigned long RaceEndTime;
+unsigned long RaceDuration;
+unsigned long NextPrintLoop;
+unsigned long NextScrollLoop;
+
+byte PrintLoopCounter;
+int ScrollLoopCounter;
+
 bool TimingStarted;
-bool RaceEnded;
+bool RaceFinished;
 byte WinnerLane;

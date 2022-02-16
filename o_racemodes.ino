@@ -10,11 +10,16 @@ void HandleRace()
     LaneTwoLapCheck = false;
     RegisterLap(2);
   }
-//  if(!TimingStarted || RaceEnded){
-  if(!TimingStarted){
-    return;
-  }
-  RaceDuration = millis() - RaceStartTime;
 
-  PrintElapsedTime(RaceDuration);
+  if(TimingStarted)
+  {
+    RaceDuration = millis() - RaceStartTime;
+    PrintElapsedTime(RaceDuration);  
+  }
+  if(TimingStarted && !RaceFinished){
+  }
+  else if(RaceFinished)
+  {
+    LoopLaps();
+  }
 }
