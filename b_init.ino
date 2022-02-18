@@ -2,7 +2,7 @@ void Reset()
 {
   RaceDuration = 0;
   RaceStartTime = 0;
-  RaceEndTime = 0;
+  //RaceEndTime = 0;
   TimingStarted = false;
   RaceFinished = false;
   SettingsMode = false;

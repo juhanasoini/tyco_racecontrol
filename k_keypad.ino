@@ -21,6 +21,8 @@ boolean HandleButtons()
         SettingsMode = true;
         opt = TycoSettings.Browse('0');
       }
+      else
+        opt = TycoSettings.Browse('L');
       break;
     case 'R':
       if(InSettings())
@@ -33,19 +35,39 @@ boolean HandleButtons()
       {
         opt = TycoSettings.Browse('D');
       }
+      else if(IsTimeTrial() && TimingStarted)
+      {
+        PrintLoopCounter++;
+        PrintLaps(TimeTrialLane, true);
+      }
       break;
     case 'U':
       if(InSettings())
       {
         opt = TycoSettings.Browse('U');
       }
+      else if(IsTimeTrial() && TimingStarted)
+      {
+        PrintLoopCounter--;
+        PrintLaps(TimeTrialLane, true);
+      }
       break;
   }
   if(InSettings())
   {
-    LCDPrintRow("SETTINGS", 0, CenterText("Settings"));
-    LCDPrintRow(opt.Category, 1, CenterText(opt.Category));
-    LCDPrintRow(opt.Opt.Label, 2, CenterText(opt.Opt.Label));    
+    LCDPrintRow("SETTINGS:", 0, 0);
+    LCDPrintRow("> "+opt.Category, 1, 1 );
+    if(opt.Opt.Label != "")
+    {
+      LCDPrintRow(">> "+opt.Opt.Label, 2, 0);
+      if(opt.Opt.Selected == true)
+      {
+        Lcd.setCursor(19, 2);
+        Lcd.write((byte)1);         
+      }
+    }      
+    else
+      WipeRow(2);
   }
 //  byte array_length = getArrayLength( SettingsTexts );
 //  byte last_element = array_length - 1;

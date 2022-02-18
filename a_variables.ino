@@ -20,11 +20,7 @@ phi_analog_keypads KeyPad(mapping, pins, values, 1, 5);
 #define LANE_TWO_INTERRUPT_PIN 3
 bool debug = false;
 
-//const byte LANE_ONE_INTERRUPT_PIN = 2;
-//const byte LANE_TWO_INTERRUPT_PIN = 3;
-
 bool SettingsMode = false;
-byte CurrentMode;//0 =Settings, 1 = Time trial, 2 = Normal race, 3 = Normal race with countdown
 byte DefaultMode = 2;
 byte MaxLapCount = 3;
 
@@ -42,7 +38,7 @@ volatile bool LaneTwoLapCheck = false;
 volatile long LaneTwoLapResetTime;
 
 unsigned long RaceStartTime;
-unsigned long RaceEndTime;
+//unsigned long RaceEndTime;
 unsigned long RaceDuration;
 unsigned long NextPrintLoop;
 unsigned long NextScrollLoop;
@@ -53,3 +49,14 @@ int ScrollLoopCounter;
 bool TimingStarted;
 bool RaceFinished;
 byte WinnerLane;
+
+byte checkMark[8] = {
+  0b00001,
+  0b00010,
+  0b00010,
+  0b00010,
+  0b10010,
+  0b01100,
+  0b00100,
+  0b00000
+};

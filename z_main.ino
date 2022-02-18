@@ -8,7 +8,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(LANE_ONE_INTERRUPT_PIN), LaneOneLapInterrupt, RISING);
   attachInterrupt(digitalPinToInterrupt(LANE_TWO_INTERRUPT_PIN), LaneTwoLapInterrupt, RISING);
 
-  //CurrentMode = 2;
+Lcd.createChar(1, checkMark);
   
   TycoSettings.SetOptions();
   PrintTyco();
@@ -28,10 +28,11 @@ void loop() {
     case 0:
       break;
     case 1:
+      HandleTimeTrial();
+      break;
     case 2:
-      HandleRace();
     case 3:
-      //Settings
+      HandleRace();
       break;
     default:
       break;

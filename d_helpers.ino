@@ -19,7 +19,7 @@ bool IsWinnerSet()
   return WinnerLane != 0;
 }
 
-bool StartTiming(byte mode, byte lane)
+bool StartTiming(byte lane)
 {
   if(TimingStarted)
     return false;
@@ -37,6 +37,11 @@ bool StartTiming(byte mode, byte lane)
   if(IsTimeTrial() && TimeTrialLane == 0)
   {
     TimeTrialLane = lane;
+    if(lane == 1)
+      Lcd.setCursor(0,0);
+    else
+      Lcd.setCursor(19,0);
+    Lcd.print(lane);
   }
   return true;
 }

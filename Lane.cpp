@@ -21,11 +21,21 @@ struct LapData Lane::RegisterLap(unsigned long raceDuration)
   unsigned long lapTime = ( raceDuration - LastLapTimeTaken );
   LastLapTimeTaken = raceDuration;
   LapCount++;
-
+  if(LapCount > 10)
+  {
+    int j =0;
+    for(int i=0; i<9;i++)
+    {
+      j = i+1;
+      LapArr[i] = LapArr[j];
+    }
+  }
+  byte lapPos = LapCount-1;
   ret.LapNr = LapCount;
   ret.LapTime = lapTime;
-  Serial.println(lapTime);
-  LapArr[LapCount-1] = ret;
+  if(LapCount > 10)
+    lapPos = 9;
+  LapArr[lapPos] = ret;
   
   return ret;
 }
@@ -38,7 +48,6 @@ byte Lane::GetLapCount()
 struct LapData Lane::GetLap(byte num)
 {
   byte maxim = MaxLapCount - 1;
-  num = num;
   if(num<0)
     num = maxim;
   else if(num>maxim)

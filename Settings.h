@@ -6,6 +6,7 @@ struct Option
 {
   int Value;
   String Label;
+  bool Selected;
 };
 
 struct OptionSelectionModel
@@ -21,8 +22,8 @@ class Settings
     byte LapCount;
     String OptionsCategories[2] = {"Mode", "Lap count"};
     struct Option Options[2][5] = {
-      { {-1, ""}, {-1, ""}, {-1, ""}, {-1, ""}, {-1, ""} },
-      { {-1, ""}, {-1, ""}, {-1, ""}, {-1, ""}, {-1, ""} }
+      { {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false} },
+      { {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false} }
     };
     int CurrentOptionLevel;
     int CurrentOptionSubLevel;
