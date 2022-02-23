@@ -35,10 +35,10 @@ boolean HandleButtons()
       {
         opt = TycoSettings.Browse('D');
       }
-      else if(IsTimeTrial() && TimingStarted)
+      else if(TimingStarted)
       {
         PrintLoopCounter++;
-        PrintLaps(TimeTrialLane, true);
+        PrintLaps(TimeTrialLane);
       }
       break;
     case 'U':
@@ -46,10 +46,10 @@ boolean HandleButtons()
       {
         opt = TycoSettings.Browse('U');
       }
-      else if(IsTimeTrial() && TimingStarted)
+      else if(TimingStarted)
       {
         PrintLoopCounter--;
-        PrintLaps(TimeTrialLane, true);
+        PrintLaps(TimeTrialLane);
       }
       break;
   }

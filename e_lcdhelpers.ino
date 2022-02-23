@@ -1,6 +1,5 @@
 #include "Lane.h"
 
-
 void WipeRow( byte RowNum)
 {
   for( byte x = 0; x < 20; x++ )

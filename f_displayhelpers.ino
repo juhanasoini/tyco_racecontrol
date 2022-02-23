@@ -13,7 +13,7 @@ void PrintRow(String text, byte LCDRowNum = 0, byte LCDRowPosition = 0)
 
 void PrintElapsedTime(long elapsedTime)
 {
-  if(elapsedTime % 1000 != 0)
+  if(elapsedTime % 100 != 0)
     return;
 
   String text = formatTime( elapsedTime );
@@ -32,39 +32,37 @@ void PrintLap( byte lane, byte lapNum, long lapTime )
     text.concat(formatTime( lapTime ));
     PrintRow(text, lane, 0);    
   }
+   BT.println( "laptime%" + (String)lapTime + "%" + (String)lane + "%" + (String)lapNum );
   //BT.println( "laptime%" + (String)lapTime + "%" + (String)lane + "%" + (String)lapCount );
 }
-void PrintLaps(byte laneNr, bool override = false)
+void PrintLaps(byte laneNr, bool incr = false)
 {
   LapData lap;
   Lane lane = Lane1;
   if(laneNr == 2)
     lane = Lane2;
 
-  byte iStart = lane.GetLapCount()-1;
-  Serial.println(PrintLoopCounter);
-  if(override)
-  {
-    iStart = PrintLoopCounter;
-  }
-  if(iStart < 2)
-  {
-    iStart = 2;
-    PrintLoopCounter = 2;
-  }
-  if(iStart>9)
-  {
-    iStart = 9;
-    PrintLoopCounter = 9;    
-  }
-
-    Serial.println(iStart);
-  byte iStop = iStart-2;
   byte lapCount = lane.GetLapCount();
-  byte row = 3;
-  for(int i=iStart;i>=iStop;i--)
+  byte maxKey = lapCount -3;
+  if(lapCount > 9)
+    maxKey = 7;
+  else if(lapCount < 4)
+    maxKey = 0;
+
+  if(incr == true && PrintLoopCounter < maxKey)
+    PrintLoopCounter++;
+  Serial.println(maxKey);
+  if(PrintLoopCounter > maxKey)
+    PrintLoopCounter = 0;
+  else if(PrintLoopCounter < 0 || lapCount < 4)
+    PrintLoopCounter = maxKey;
+
+  Serial.println(PrintLoopCounter);
+  byte iStart = PrintLoopCounter;
+  byte row = 1;
+  for(int i=0;i<3;i++)
   {
-    lap = lane.GetLap(i);
+    lap = lane.GetLap(iStart);
     if(lap.LapTime > 0)
     {
       String text = "";
@@ -75,7 +73,8 @@ void PrintLaps(byte laneNr, bool override = false)
         text.concat(" ");
       text.concat(formatTime( lap.LapTime ));
       PrintRow(text, row, 0);
-      row--;      
+      row++;
+      iStart++;
     }
   }
 }

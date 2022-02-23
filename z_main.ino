@@ -1,5 +1,6 @@
 void setup() {
   Serial.begin(9600);
+  BT.begin(9600);
   Lcd.begin(20, 4);
 
   //pinMode(LANE_ONE_INTERRUPT_PIN, INPUT_PULLUP);  

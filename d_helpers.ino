@@ -43,5 +43,7 @@ bool StartTiming(byte lane)
       Lcd.setCursor(19,0);
     Lcd.print(lane);
   }
+  
+  BT.println( "starttiming" );
   return true;
 }

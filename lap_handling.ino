@@ -23,7 +23,7 @@ void RegisterLap(byte lane = 0)
   PrintLap( lane, lapData.LapNr, lapData.LapTime);
   if(IsTimeTrial())
   {
-    PrintLaps(lane);
+    PrintLaps(lane, true);
   }
   
   if ( !IsTimeTrial() && !RaceFinished && lapCount == MaxLapCount && !IsWinnerSet() )

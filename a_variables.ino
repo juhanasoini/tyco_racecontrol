@@ -4,7 +4,9 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <phi_interfaces.h>
+#include <SoftwareSerial.h>
 
+SoftwareSerial BT(10, 7); 
 LiquidCrystal_I2C Lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 //Key pad settings
@@ -43,7 +45,7 @@ unsigned long RaceDuration;
 unsigned long NextPrintLoop;
 unsigned long NextScrollLoop;
 
-byte PrintLoopCounter;
+int PrintLoopCounter;
 int ScrollLoopCounter;
 
 bool TimingStarted;
