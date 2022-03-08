@@ -9,7 +9,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(LANE_ONE_INTERRUPT_PIN), LaneOneLapInterrupt, RISING);
   attachInterrupt(digitalPinToInterrupt(LANE_TWO_INTERRUPT_PIN), LaneTwoLapInterrupt, RISING);
 
-Lcd.createChar(1, checkMark);
+  Lcd.createChar(1, checkMark);
   
   TycoSettings.SetOptions();
   PrintTyco();
@@ -17,13 +17,9 @@ Lcd.createChar(1, checkMark);
 }
 
 void loop() {
-//  if(LaneOneLapResetTime <= millis())
-//    LaneOneLapCheck = false;
-//  if(LaneTwoLapResetTime <= millis())
-//    LaneTwoLapCheck = false;
+  HandleSerialInput();
   HandleButtons();
-
-  
+    
   switch(TycoSettings.GetMode())
   {
     case 0:
@@ -38,5 +34,4 @@ void loop() {
     default:
       break;
   }
-
 }

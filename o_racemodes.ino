@@ -26,7 +26,6 @@ void HandleRace()
 }
 void HandleTimeTrial()
 {
-  
   if(LaneOneLapCheck && (TimeTrialLane == 1 || TimeTrialLane == 0))
   {
     LaneOneLapCheck = false;

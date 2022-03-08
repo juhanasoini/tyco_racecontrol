@@ -24,6 +24,8 @@ bool StartTiming(byte lane)
   if(TimingStarted)
     return false;
 
+  BT.println("starttiming");
+
   WipeRow(0);
   WipeRow(1);
   WipeRow(2);

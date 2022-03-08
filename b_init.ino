@@ -26,4 +26,6 @@ void Reset()
   String str = TycoSettings.GetModeLabel();
   Lcd.setCursor( CenterText(str), 2 );
   Lcd.print( str );
+
+  BT.println("setmode="+(String)TycoSettings.GetMode());
 }

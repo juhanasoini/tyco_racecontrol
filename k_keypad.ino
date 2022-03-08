@@ -165,7 +165,7 @@ boolean HandleButtons()
   return true;
 }
 
-byte getArrayLength( String* arr )
+byte GetArrayLength( String* arr )
 {
   byte count = 0;
   while( arr[count] != "END" )
@@ -175,16 +175,19 @@ byte getArrayLength( String* arr )
   return count;
 }
 
-//boolean handleSerialInput()
-//{
-//  byte incomingByte = 0;
-//    //Serial.println(BT.available());
-//  if( BT.available() ) 
-//  {
-//    // read the incoming byte:
-//    incomingByte = BT.read();
-//    switch( incomingByte ) 
-//    {
+boolean HandleSerialInput()
+{
+  char incomingChar;
+  if( BT.available() > 0 ) 
+  {
+    incomingChar = BT.read();
+    Serial.println(incomingChar);
+    switch( incomingChar ) 
+    {
+      
+    }
+  }
+}
 //      case 33: //!
 //      case 49: //1
 //        //Set racemode 0

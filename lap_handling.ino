@@ -21,6 +21,7 @@ void RegisterLap(byte lane = 0)
     return;
     
   PrintLap( lane, lapData.LapNr, lapData.LapTime);
+  BT.println( "lap=" + (String)lane + "|" + (String)lapData.LapNr +"|"+(String)lapData.LapTime );
   if(IsTimeTrial())
   {
     PrintLaps(lane, true);
@@ -32,12 +33,13 @@ void RegisterLap(byte lane = 0)
     RaceFinished = true;
     PrintRow("Winner on lane #" + (String)lane, 3, 1);
     NextPrintLoop = millis() + 2000;
-//    BT.println( "winner%" + (String)lane );
+    BT.println( "setwinner=" + (String)lane );
   }
 
   if(!IsTimeTrial() && Lane1.GetLapCount() == MaxLapCount && Lane2.GetLapCount() == MaxLapCount)
   {
     TimingStarted = false;
+    BT.println("stoptiming");
   }
 }
 
