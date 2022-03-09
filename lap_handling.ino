@@ -7,6 +7,7 @@ void RegisterLap(byte lane = 0)
 
   LapData lapData = {0,0};
   byte lapCount;
+  String btMessage = "";
   if (lane == 1 && ( (!IsTimeTrial() && Lane1.GetLapCount() < TycoSettings.GetLapCount()) || IsTimeTrial()))
   {
     lapData = Lane1.RegisterLap(RaceDuration);
@@ -21,7 +22,8 @@ void RegisterLap(byte lane = 0)
     return;
     
   PrintLap( lane, lapData.LapNr, lapData.LapTime);
-  BT.println( "lap=" + (String)lane + "|" + (String)lapData.LapNr +"|"+(String)lapData.LapTime );
+  btMessage += "lap=" + (String)lane + "%" + (String)lapData.LapNr +"%"+(String)lapData.LapTime;
+  
   if(IsTimeTrial())
   {
     PrintLaps(lane, true);
@@ -29,24 +31,26 @@ void RegisterLap(byte lane = 0)
   
   if ( !IsTimeTrial() && !RaceFinished && lapCount == MaxLapCount && !IsWinnerSet() )
   {
+    btMessage += "#winner=" + (String)lane;
     WinnerLane = lane;
     RaceFinished = true;
     PrintRow("Winner on lane #" + (String)lane, 3, 1);
     NextPrintLoop = millis() + 2000;
-    BT.println( "setwinner=" + (String)lane );
   }
 
   if(!IsTimeTrial() && Lane1.GetLapCount() == MaxLapCount && Lane2.GetLapCount() == MaxLapCount)
   {
+    if(btMessage != "")
+      btMessage += "#";
+    btMessage += "stop";
     TimingStarted = false;
-    BT.println("stoptiming");
   }
+  BTPrint(btMessage);
 }
 
 void LaneOneLapInterrupt(){
   if(LaneOneLapResetTime <= millis())
   {
-    Serial.println(F("Lane 1"));
     LaneOneLapCheck = true;
     LaneOneLapResetTime = millis() + 3000;
   }
@@ -54,7 +58,6 @@ void LaneOneLapInterrupt(){
 void LaneTwoLapInterrupt(){
   if(LaneTwoLapResetTime <= millis())
   {
-    Serial.println(F("Lane 2"));
     LaneTwoLapCheck = true;
     LaneTwoLapResetTime = millis() + 3000;
   }

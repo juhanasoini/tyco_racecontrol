@@ -24,7 +24,7 @@ bool StartTiming(byte lane)
   if(TimingStarted)
     return false;
 
-  BT.println("starttiming");
+  BTPrint("start");
 
   WipeRow(0);
   WipeRow(1);
@@ -45,7 +45,6 @@ bool StartTiming(byte lane)
       Lcd.setCursor(19,0);
     Lcd.print(lane);
   }
-  
-  BT.println( "starttiming" );
+ 
   return true;
 }

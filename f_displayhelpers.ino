@@ -3,7 +3,7 @@ void PrintRow(String text, byte LCDRowNum = 0, byte LCDRowPosition = 0)
 {
   if(debug)
   {
-    Serial.println(text);
+    SerialPrint(text);
   }
   else
   {
@@ -32,8 +32,6 @@ void PrintLap( byte lane, byte lapNum, long lapTime )
     text.concat(formatTime( lapTime ));
     PrintRow(text, lane, 0);    
   }
-   BT.println( "laptime%" + (String)lapTime + "%" + (String)lane + "%" + (String)lapNum );
-  //BT.println( "laptime%" + (String)lapTime + "%" + (String)lane + "%" + (String)lapCount );
 }
 void PrintLaps(byte laneNr, bool incr = false)
 {
@@ -51,13 +49,12 @@ void PrintLaps(byte laneNr, bool incr = false)
 
   if(incr == true && PrintLoopCounter < maxKey)
     PrintLoopCounter++;
-  Serial.println(maxKey);
+  
   if(PrintLoopCounter > maxKey)
     PrintLoopCounter = 0;
   else if(PrintLoopCounter < 0 || lapCount < 4)
     PrintLoopCounter = maxKey;
 
-  Serial.println(PrintLoopCounter);
   byte iStart = PrintLoopCounter;
   byte row = 1;
   for(int i=0;i<3;i++)

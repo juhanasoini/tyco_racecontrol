@@ -1,4 +1,4 @@
-void Reset()
+void Reset(boolean sendMode)
 {
   RaceDuration = 0;
   RaceStartTime = 0;
@@ -27,5 +27,6 @@ void Reset()
   Lcd.setCursor( CenterText(str), 2 );
   Lcd.print( str );
 
-  BT.println("setmode="+(String)TycoSettings.GetMode());
+  if(sendMode)
+    BTPrint("mode="+(String)TycoSettings.GetMode());
 }

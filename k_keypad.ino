@@ -12,12 +12,12 @@ boolean HandleButtons()
   switch(key)
   {
     case 'A':
-      Reset();
+      Reset(true);
       break;
     case 'L':
       if(!InSettings())
       {
-        Reset();
+        Reset(false);
         SettingsMode = true;
         opt = TycoSettings.Browse('0');
       }
@@ -175,19 +175,7 @@ byte GetArrayLength( String* arr )
   return count;
 }
 
-boolean HandleSerialInput()
-{
-  char incomingChar;
-  if( BT.available() > 0 ) 
-  {
-    incomingChar = BT.read();
-    Serial.println(incomingChar);
-    switch( incomingChar ) 
-    {
-      
-    }
-  }
-}
+
 //      case 33: //!
 //      case 49: //1
 //        //Set racemode 0

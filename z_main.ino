@@ -13,7 +13,7 @@ void setup() {
   
   TycoSettings.SetOptions();
   PrintTyco();
-  Reset();
+  Reset(true);
 }
 
 void loop() {
