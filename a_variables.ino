@@ -11,9 +11,9 @@ LiquidCrystal_I2C Lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 //Key pad settings
 byte keypad_type=Analog_keypad;
-char mapping[]={'L','U','D','R','A'}; // This is an analog keypad.
-byte pins[]={2}; // The pin numbers are analog pin numbers.
-int values[]={0, 146, 320, 513, 744}; //These numbers need to increase monotonically.
+char mapping[]={'L','U','D','R','A'};
+byte pins[]={2}; // Analog pin
+int values[]={0, 146, 320, 513, 744};
 phi_analog_keypads KeyPad(mapping, pins, values, 1, 5);
 // -- Key pad settings
 

@@ -93,10 +93,6 @@ void PrintTyco()
     0b00000
   };
   
-  String row1 = "___ _   _ ____ ____ ";
-  String row2 = " |   \\_/  |    |  |";
-  String row3 = " |    |   |___ |__| ";
-  
   PrintRow(F( "___ _   _ ____ ____ " ), 0, 0);
 
   Lcd.createChar(0, backSlash);
