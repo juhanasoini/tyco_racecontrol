@@ -4,12 +4,18 @@ void HandleRace()
   if(LaneOneLapCheck)
   {
     LaneOneLapCheck = false;
-    RegisterLap(1);
+    if(TycoSettings.ReverseLanes())
+      RegisterLap(2);
+    else
+      RegisterLap(1);
   }
   if(LaneTwoLapCheck)
   {
     LaneTwoLapCheck = false;
-    RegisterLap(2);
+    if(TycoSettings.ReverseLanes())
+      RegisterLap(1);
+    else
+      RegisterLap(2);
   }
 
   if(TimingStarted)
@@ -29,12 +35,18 @@ void HandleTimeTrial()
   if(LaneOneLapCheck && (TimeTrialLane == 1 || TimeTrialLane == 0))
   {
     LaneOneLapCheck = false;
-    RegisterLap(1);
+    if(TycoSettings.ReverseLanes())
+      RegisterLap(2);
+    else
+      RegisterLap(1);
   }
   if(LaneTwoLapCheck && (TimeTrialLane == 2 || TimeTrialLane == 0))
   {
     LaneTwoLapCheck = false;
-    RegisterLap(2);
+    if(TycoSettings.ReverseLanes())
+      RegisterLap(1);
+    else
+      RegisterLap(2);
   }
   if(TimingStarted)
   {

@@ -20,8 +20,10 @@ class Settings
   private:
     byte Mode;
     byte LapCount;
-    String OptionsCategories[2] = {"Mode", "Lap count"};
-    struct Option Options[2][5] = {
+    byte LaneOrder;
+    String OptionsCategories[3] = {"Mode", "Lap count", "Lane order"};
+    struct Option Options[3][5] = {
+      { {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false} },
       { {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false} },
       { {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false}, {-1, "", false} }
     };
@@ -36,6 +38,7 @@ class Settings
     byte GetLapCount();
     void SetLapCount(byte count);
     void SetOptions();
+    boolean ReverseLanes();
 
     struct OptionSelectionModel Browse(char dir);
 };

@@ -21,7 +21,7 @@ bool IsWinnerSet()
 
 bool StartTiming(byte lane)
 {
-  if(TimingStarted)
+  if(TimingStarted || RaceFinished)
     return false;
 
   BTPrint("start");
@@ -33,6 +33,9 @@ bool StartTiming(byte lane)
 
   TimingStarted = true;
   RaceStartTime = millis();
+  
+  LaneOneLapResetTime = RaceStartTime + 3000;
+  LaneTwoLapResetTime = RaceStartTime + 3000;
 
   PrintElapsedTime(0);
   

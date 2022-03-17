@@ -6,25 +6,34 @@ Settings::Settings(byte mode, byte lapCount)
   LapCount = lapCount;
   CurrentOptionLevel = -1;
   CurrentOptionSubLevel = -1;
+  LaneOrder = 0;
 }
 
 void Settings::SetOptions()
 {
   OptionsCategories[0] = "Mode";
   OptionsCategories[1] = "Lap count";
+  OptionsCategories[2] = "Lane order";
   
   Options[0][0] = {1, "Time trial"};
   Options[0][1] = {2, "Race"};
   
-  Options[1][0] = {2, "2"};
+  Options[1][0] = {1, "1"};
   Options[1][1] = {3, "3"};
-  Options[1][2] = {4, "4"};
+  Options[1][2] = {5, "5"};
+  Options[1][2] = {8, "8"};
+  Options[1][2] = {10, "10"};
+  
+  Options[2][0] = {0, "Normal"};
+  Options[2][1] = {1, "Reversed"};
 
   for (int i = 0; i <5; i++) {
     if(Options[0][i].Value == Mode)
       Options[0][i].Selected = true;
     if(Options[1][i].Value == LapCount)
       Options[1][i].Selected = true;
+    if(Options[2][i].Value == LaneOrder)
+      Options[2][i].Selected = true;
   }
 }
 struct OptionSelectionModel Settings::Browse(char dir)
@@ -32,7 +41,7 @@ struct OptionSelectionModel Settings::Browse(char dir)
   OptionSelectionModel ret;
   Option opt;
   
-  byte catLength = 2;
+  byte catLength = 3;
   byte listLength = 2;
   switch(dir)
   {
@@ -48,20 +57,21 @@ struct OptionSelectionModel Settings::Browse(char dir)
         for (int i = 0; i <5; i++) {
           Options[CurrentOptionLevel][i].Selected = false;
         }
+        int value = Options[CurrentOptionLevel][CurrentOptionSubLevel].Value;
         if(CurrentOptionLevel == 0)
         {
-          Mode = Options[CurrentOptionLevel][CurrentOptionSubLevel].Value;
-          Options[CurrentOptionLevel][CurrentOptionSubLevel].Selected = true;
+          Mode = value;
           if(Mode == 1)
-            LapCount = 10;//10
+            LapCount = 10;
           else
             LapCount = 3;
         }
         else if(CurrentOptionLevel == 1)
-        {
-          LapCount = Options[CurrentOptionLevel][CurrentOptionSubLevel].Value;
-          Options[CurrentOptionLevel][CurrentOptionSubLevel].Selected = true;
-        }
+          LapCount = value;
+        else if(CurrentOptionLevel == 2)
+          LaneOrder = value;
+        
+        Options[CurrentOptionLevel][CurrentOptionSubLevel].Selected = true;
       }
       break;
     case 'D':
@@ -130,4 +140,9 @@ void Settings::SetMode(byte mode)
 byte Settings::GetLapCount()
 {
   return LapCount;
+}
+
+boolean Settings::ReverseLanes()
+{
+  return LaneOrder == 1;
 }
