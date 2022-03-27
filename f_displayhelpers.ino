@@ -123,6 +123,6 @@ void LoopLaps()
 
   NextPrintLoop = millis() + 2000;
   PrintLoopCounter++;
-  if(PrintLoopCounter >= MaxLapCount)
+  if(PrintLoopCounter >= TycoSettings.GetLapCount())
     PrintLoopCounter = 0;
 }

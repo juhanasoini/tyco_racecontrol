@@ -24,12 +24,12 @@ bool debug = false;
 
 bool SettingsMode = false;
 byte DefaultMode = 2;
-byte MaxLapCount = 3;
+byte DefaultMaxLapCount = 3;
 
-Lane Lane1(LANE_ONE_INTERRUPT_PIN, 1, MaxLapCount);
-Lane Lane2(LANE_TWO_INTERRUPT_PIN, 2, MaxLapCount);
+Lane Lane1(LANE_ONE_INTERRUPT_PIN, 1, DefaultMaxLapCount);
+Lane Lane2(LANE_TWO_INTERRUPT_PIN, 2, DefaultMaxLapCount);
 
-Settings TycoSettings(DefaultMode, MaxLapCount);
+Settings TycoSettings(DefaultMode, DefaultMaxLapCount);
 
 byte TimeTrialLane;
 

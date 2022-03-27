@@ -29,7 +29,8 @@ void RegisterLap(byte lane = 0)
     PrintLaps(lane, true);
   }
   
-  if ( !IsTimeTrial() && !RaceFinished && lapCount == MaxLapCount && !IsWinnerSet() )
+  int maxLapCount = TycoSettings.GetLapCount();
+  if ( !IsTimeTrial() && !RaceFinished && lapCount == maxLapCount && !IsWinnerSet() )
   {
     btMessage += "#winner=" + (String)lane;
     WinnerLane = lane;
@@ -37,8 +38,8 @@ void RegisterLap(byte lane = 0)
     PrintRow("Winner on lane #" + (String)lane, 3, 1);
     NextPrintLoop = millis() + 2000;
   }
-
-  if(!IsTimeTrial() && Lane1.GetLapCount() == MaxLapCount && Lane2.GetLapCount() == MaxLapCount)
+  
+  if(!IsTimeTrial() && Lane1.GetLapCount() == maxLapCount && Lane2.GetLapCount() == maxLapCount)
   {
     if(btMessage != "")
       btMessage += "#";
