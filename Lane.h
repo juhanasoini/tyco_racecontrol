@@ -18,6 +18,7 @@ class Lane
     byte MaxLapCount;
     unsigned long LastLapTimeTaken;
     struct LapData LapArr[10];
+    bool TimingStarted;
 
   public:
     Lane(byte pin, byte laneNr, byte maxLapCount);

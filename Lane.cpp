@@ -13,6 +13,7 @@ void Lane::Reset(byte maxLapCount)
   LapCount = 0;
   LastLapTimeTaken = 0;
   MaxLapCount = maxLapCount;
+  TimingStarted = false;
   for(int i=0;i<10;i++)
   {
     LapArr[i] = {0,0};
@@ -23,6 +24,11 @@ void Lane::Reset(byte maxLapCount)
 struct LapData Lane::RegisterLap(unsigned long raceDuration)
 {
   LapData ret;
+  if(TimingStarted == false)
+  {
+    TimingStarted = true;
+    return ret;
+  }
   unsigned long lapTime = ( raceDuration - LastLapTimeTaken );
   LastLapTimeTaken = raceDuration;
   LapCount++;

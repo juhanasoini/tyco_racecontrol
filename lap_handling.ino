@@ -2,8 +2,7 @@
 
 void RegisterLap(byte lane = 0)
 {
-  if(StartTiming(lane))
-    return;
+  StartTiming(lane);
 
   LapData lapData = {0,0};
   byte lapCount;
@@ -19,6 +18,9 @@ void RegisterLap(byte lane = 0)
     lapCount = Lane2.GetLapCount();
   }
   else
+    return;
+
+  if(lapCount == 0)
     return;
     
   PrintLap( lane, lapData.LapNr, lapData.LapTime);
@@ -43,7 +45,7 @@ void RegisterLap(byte lane = 0)
   {
     if(btMessage != "")
       btMessage += "#";
-    btMessage += "stop";
+    btMessage += "stop";//Possible super fin
     TimingStarted = false;
   }
   BTPrint(btMessage);
