@@ -16,6 +16,9 @@ void HandleSerialInput()
         TycoSettings.SetMode(2);
         Reset(false);
         break;
+      case 'R':
+        Reset(false);
+        break;
     }
   }
 }

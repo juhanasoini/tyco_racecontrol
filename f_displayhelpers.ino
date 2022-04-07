@@ -13,7 +13,7 @@ void PrintRow(String text, byte LCDRowNum = 0, byte LCDRowPosition = 0)
 
 void PrintElapsedTime(long elapsedTime)
 {
-  if(elapsedTime % 100 != 0)
+  if(elapsedTime % 250 != 0)
     return;
 
   String text = formatTime( elapsedTime );
